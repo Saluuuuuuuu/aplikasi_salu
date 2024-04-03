@@ -3,20 +3,73 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package aplikasikasir_salu;
+import static java.lang.Thread.sleep;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author OWNER
  */
 public class MenuUtama extends javax.swing.JFrame {
+    Connection konek;
+PreparedStatement pst;
+ResultSet rst;
 
     /**
      * Creates new form MenuUtama
      */
     public MenuUtama() {
         initComponents();
+         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        konek = Koneksi.koneksiDB();
+        mulai();
+        tampilwaktu();
     }
 
+    public void mulai (){ 
+        login.setEnabled(false);
+        Logout.setEnabled(false);
+        Produk.setEnabled(false);
+        Transaksi.setEnabled(false);
+        Laporan.setEnabled(false);
+        txtjam.setEnabled(false);
+        txttanggal.setEnabled(false);
+        formlogin.setVisible(false);
+        btnregister.setEnabled(false);
+        btnproduk.setEnabled(false);
+        btnpelanggan.setEnabled(false);
+        btnpenjualan.setEnabled(false);
+    }
+    
+    public void tampilwaktu(){
+        Thread clock=new Thread(){
+            public void run(){
+                for(;;){
+                    Calendar cal = Calendar.getInstance();
+                    SimpleDateFormat Jam = new SimpleDateFormat("hh:mm:ss");
+                    SimpleDateFormat Tanggal = new SimpleDateFormat("dd:MM:yyyy");
+                    txtjam.setText(Jam.format(cal.getTime()));
+                    txttanggal.setText(Tanggal.format(cal.getTime()));
+                    try { sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MenuUtama.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                }
+            }
+                };
+            
+        clock.start();
+    }
+                
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,60 +79,313 @@ public class MenuUtama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        btnregister = new javax.swing.JButton();
+        lblUser = new javax.swing.JLabel();
+        formlogin = new javax.swing.JInternalFrame();
+        Login = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtusername = new javax.swing.JTextField();
+        cmbhakakses = new javax.swing.JComboBox<>();
+        btnbatal = new javax.swing.JButton();
+        txtpassword = new javax.swing.JPasswordField();
+        jPanel3 = new javax.swing.JPanel();
+        btnpenjualan = new javax.swing.JButton();
+        btnpelanggan = new javax.swing.JButton();
+        btnproduk = new javax.swing.JButton();
+        txtjam = new javax.swing.JTextField();
+        txttanggal = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         Beranda = new javax.swing.JMenu();
-        Register = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        login = new javax.swing.JMenuItem();
+        register = new javax.swing.JMenuItem();
         Logout = new javax.swing.JMenuItem();
         Master = new javax.swing.JMenu();
         Pelanggan = new javax.swing.JMenuItem();
         Produk = new javax.swing.JMenuItem();
         Transaksi = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        penjualan = new javax.swing.JMenuItem();
+        Laporan = new javax.swing.JMenu();
+        laptransaksi = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        tentang = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+
+        btnregister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnregisterActionPerformed(evt);
+            }
+        });
+
+        lblUser.setText("silahkan login dulu...!");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addComponent(btnregister)
+                .addGap(16, 16, 16))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUser)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(lblUser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnregister, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+        );
+
+        formlogin.setVisible(true);
+
+        Login.setText("login");
+        Login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Form Login");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(125, 125, 125))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(29, 29, 29))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Username");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("Password");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Hak Akses");
+
+        cmbhakakses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pilih salah satu", "admin", "petugas" }));
+
+        btnbatal.setText("batal");
+        btnbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbatalActionPerformed(evt);
+            }
+        });
+
+        txtpassword.setText("jPasswordField1");
+
+        javax.swing.GroupLayout formloginLayout = new javax.swing.GroupLayout(formlogin.getContentPane());
+        formlogin.getContentPane().setLayout(formloginLayout);
+        formloginLayout.setHorizontalGroup(
+            formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(formloginLayout.createSequentialGroup()
+                .addGroup(formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(formloginLayout.createSequentialGroup()
+                        .addGroup(formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(formloginLayout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel2))
+                            .addGroup(formloginLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))))
+                        .addGap(79, 79, 79))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formloginLayout.createSequentialGroup()
+                        .addComponent(btnbatal)
+                        .addGap(39, 39, 39)))
+                .addGroup(formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Login)
+                    .addComponent(txtusername)
+                    .addComponent(cmbhakakses, 0, 121, Short.MAX_VALUE)
+                    .addComponent(txtpassword))
+                .addContainerGap(96, Short.MAX_VALUE))
+        );
+        formloginLayout.setVerticalGroup(
+            formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formloginLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbhakakses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(formloginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Login)
+                    .addComponent(btnbatal))
+                .addGap(0, 49, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
+
+        btnpenjualan.setText("penjualan");
+        btnpenjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpenjualanActionPerformed(evt);
+            }
+        });
+
+        btnpelanggan.setText("pelanggan");
+        btnpelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpelangganActionPerformed(evt);
+            }
+        });
+
+        btnproduk.setText("produk");
+        btnproduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnprodukActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btnpelanggan)
+                .addGap(42, 42, 42)
+                .addComponent(btnproduk)
+                .addGap(54, 54, 54)
+                .addComponent(btnpenjualan)
+                .addContainerGap(153, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnpenjualan)
+                    .addComponent(btnpelanggan)
+                    .addComponent(btnproduk))
+                .addGap(28, 28, 28))
+        );
+
+        txtjam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtjamActionPerformed(evt);
+            }
+        });
+
         Beranda.setText("Beranda");
 
-        Register.setText("Login");
-        Register.addActionListener(new java.awt.event.ActionListener() {
+        login.setText("Login");
+        login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterActionPerformed(evt);
+                loginActionPerformed(evt);
             }
         });
-        Beranda.add(Register);
+        Beranda.add(login);
 
-        jMenuItem1.setText("Register");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        register.setText("Register");
+        register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                registerActionPerformed(evt);
             }
         });
-        Beranda.add(jMenuItem1);
+        Beranda.add(register);
 
         Logout.setText("Logout");
+        Logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutActionPerformed(evt);
+            }
+        });
         Beranda.add(Logout);
 
         jMenuBar1.add(Beranda);
 
-        Master.setText("Maser");
+        Master.setText("master");
 
         Pelanggan.setText("Pelanggan");
+        Pelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PelangganActionPerformed(evt);
+            }
+        });
         Master.add(Pelanggan);
 
         Produk.setText("Produk");
+        Produk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProdukActionPerformed(evt);
+            }
+        });
         Master.add(Produk);
 
         jMenuBar1.add(Master);
 
         Transaksi.setText("Transaksi");
+
+        penjualan.setText("penjualan");
+        penjualan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                penjualanActionPerformed(evt);
+            }
+        });
+        Transaksi.add(penjualan);
+
         jMenuBar1.add(Transaksi);
 
-        jMenu4.setText("Laporan");
-        jMenuBar1.add(jMenu4);
+        Laporan.setText("Laporan");
+
+        laptransaksi.setText("laptransaksi");
+        laptransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                laptransaksiActionPerformed(evt);
+            }
+        });
+        Laporan.add(laptransaksi);
+
+        jMenuBar1.add(Laporan);
 
         jMenu5.setText("Help");
+
+        tentang.setText("tentang");
+        tentang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tentangActionPerformed(evt);
+            }
+        });
+        jMenu5.add(tentang);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -88,23 +394,139 @@ public class MenuUtama extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(formlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txttanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtjam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(formlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RegisterActionPerformed
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+login.setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_loginActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
+new Formregister().setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_registerActionPerformed
+
+    private void btnregisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregisterActionPerformed
+        new Formregister().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnregisterActionPerformed
+
+    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+ try {
+            String sql = "Select * from login where Username='"+txtusername.getText()+"' and password='"+txtpassword.getText()+"' and HakAkses='"+cmbhakakses.getSelectedItem()+"'";
+            pst=Koneksi.PreparedStatement(sql);
+            rst=pst.executeQuery();
+            if (rst.next()){
+                if(txtusername.getText().equals(rst.getString("Username")) && txtpassword.getText().equals(rst.getString("password"))&& cmbhakakses.getSelectedItem().equals(rst.getString("HakAkses")))
+                    if(cmbhakakses.getSelectedItem().equals("Admin")){
+                         register.setEnabled(true);
+                         Logout.setEnabled(true);
+                         Master.setEnabled(true);
+                         Transaksi.setEnabled(true);
+                         Laporan.setEnabled(true); 
+                         txtjam.setEnabled(false);
+                         txttanggal.setEnabled(false);
+                         Login.setVisible(false);
+                         register.setEnabled(true);
+                         btnproduk.setEnabled(true);
+                         Pelanggan.setEnabled(true);
+                         penjualan.setEnabled(true);
+                     } else if (cmbhakakses.getSelectedItem().equals("Petugas")){
+                         register.setEnabled(false);
+                         Logout.setEnabled(true);
+                         Master.setEnabled(true);
+                         Transaksi.setEnabled(true);
+                         Laporan.setEnabled(true);
+                         txtjam.setEnabled(false);
+                         txttanggal.setEnabled(false);
+                         login.setVisible(false);
+                         register.setEnabled(false);
+                         btnproduk.setEnabled(true);
+                         Pelanggan.setEnabled(true);
+                         penjualan.setEnabled(true);
+                     }    
+            
+             JOptionPane.showMessageDialog(null, "'Welcome Chagiaaa'"+txtusername.getText()+"'");
+                     String text = txtusername.getText();
+                         lblUser.setText(text);
+            }else{
+                JOptionPane.showMessageDialog(null,"username atau password salah");
+                txtusername.setText("");
+                txtpassword.setText("");
+                cmbhakakses.setSelectedItem("-Pilih Salah Satu");
+           
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);// TODO add your handling code here:
+    }//GEN-LAST:event_LoginActionPerformed
+    }
+    private void txtjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtjamActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_txtjamActionPerformed
+
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+new MenuUtama().setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_LogoutActionPerformed
+
+    private void PelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PelangganActionPerformed
+new FormPelanggan().setVisible(true);          // TODO add your handling code here:
+    }//GEN-LAST:event_PelangganActionPerformed
+
+    private void ProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdukActionPerformed
+new FormProduk().setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_ProdukActionPerformed
+
+    private void penjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penjualanActionPerformed
+new FormPenjualan().setVisible(true);          // TODO add your handling code here:
+    }//GEN-LAST:event_penjualanActionPerformed
+
+    private void laptransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_laptransaksiActionPerformed
+new formlaptransaksi().setVisible(true);           // TODO add your handling code here:
+    }//GEN-LAST:event_laptransaksiActionPerformed
+
+    private void tentangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tentangActionPerformed
+ new FormAbout().setVisible(true);           // TODO add your handling code here:
+    }//GEN-LAST:event_tentangActionPerformed
+
+    private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
+  new MenuUtama().setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_btnbatalActionPerformed
+
+    private void btnpenjualanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpenjualanActionPerformed
+new FormPenjualan().setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_btnpenjualanActionPerformed
+
+    private void btnpelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpelangganActionPerformed
+new FormPelanggan().setVisible(true);         // TODO add your handling code here:
+    }//GEN-LAST:event_btnpelangganActionPerformed
+
+    private void btnprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprodukActionPerformed
+new FormProduk().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnprodukActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,15 +565,38 @@ public class MenuUtama extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Beranda;
+    private javax.swing.JMenu Laporan;
+    private javax.swing.JButton Login;
     private javax.swing.JMenuItem Logout;
     private javax.swing.JMenu Master;
     private javax.swing.JMenuItem Pelanggan;
     private javax.swing.JMenuItem Produk;
-    private javax.swing.JMenuItem Register;
     private javax.swing.JMenu Transaksi;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JButton btnbatal;
+    private javax.swing.JButton btnpelanggan;
+    private javax.swing.JButton btnpenjualan;
+    private javax.swing.JButton btnproduk;
+    private javax.swing.JButton btnregister;
+    private javax.swing.JComboBox<String> cmbhakakses;
+    private javax.swing.JInternalFrame formlogin;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JMenuItem laptransaksi;
+    private javax.swing.JLabel lblUser;
+    private javax.swing.JMenuItem login;
+    private javax.swing.JMenuItem penjualan;
+    private javax.swing.JMenuItem register;
+    private javax.swing.JMenuItem tentang;
+    private javax.swing.JTextField txtjam;
+    private javax.swing.JPasswordField txtpassword;
+    private javax.swing.JTextField txttanggal;
+    private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
 }

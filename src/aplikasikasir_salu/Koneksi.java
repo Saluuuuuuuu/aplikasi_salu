@@ -6,12 +6,17 @@ package aplikasikasir_salu;
 import javax.swing.JOptionPane;
 import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 /**
  *
  * @author OWNER
  */
 public class Koneksi {
+
+    static PreparedStatement PreparedStatement(String sql) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
      Connection koneksi=null;
      
       public static Connection koneksiDB(){

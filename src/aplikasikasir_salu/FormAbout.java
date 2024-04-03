@@ -15,6 +15,7 @@ public class FormAbout extends javax.swing.JFrame {
      */
     public FormAbout() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -38,13 +39,13 @@ public class FormAbout extends javax.swing.JFrame {
         jLabel1.setText("Versi              : 10");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Dibuat oleh   : Devi");
+        jLabel3.setText("Dibuat oleh   : salu");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Aplikasi kasir ini dibuat untuk membantu tugas kasir di ");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setText("Toko Devi Mini market in Indonesia");
+        jLabel6.setText("Toko salu Mini market in Indonesia");
 
         btnkeluar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnkeluar.setText("KELUAR");
